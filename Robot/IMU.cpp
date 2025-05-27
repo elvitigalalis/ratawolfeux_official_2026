@@ -11,17 +11,16 @@
 #define DATA_BITS 8
 #define STOP_BITS 1
 #define PARITY UART_PARITY_NONE
-#define UART_RX_PIN 5
 #define UART_IRQ UART1_IRQ
 
-IMU::IMU() {
+IMU::IMU(int uartRXPin) : uartRXPin(uartRXPin) {
   setUpIMUCommunication();
   setUpIMUInterrupts();
 }
 
 void IMU::setUpIMUCommunication() {
   uart_init(UART_ID, BAUD_RATE);
-  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+  gpio_set_function((uint)uartRXPin, GPIO_FUNC_UART);
   uart_set_baudrate(UART_ID, BAUD_RATE);
   uart_set_hw_flow(UART_ID, false, false);
   uart_set_format(UART_ID, DATA_BITS, STOP_BITS, PARITY);

@@ -5,7 +5,7 @@
 
 class IMU {
  public:
-  IMU();
+  IMU(int uartRXPin = 5);
   ~IMU();
 
   float getIMUYawDegreesNeg180ToPos180();
@@ -18,6 +18,7 @@ class IMU {
   static void processIMURXInterruptData();
   static void convertPacketDataToUsableYaw();
 
+  const int uartRXPin;
   static volatile uint8_t IMUBufferForYaw[19];
   static float robotYawNeg180To180Degrees;
   static float resetOffSet;
