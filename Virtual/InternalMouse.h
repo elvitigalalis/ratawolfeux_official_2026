@@ -1,24 +1,31 @@
 #ifndef INTERNALMOUSE_H
 #define INTERNALMOUSE_H
 
-#include <vector>
+#include <array>
+#include <string>
 
-#include "MazeGrid.h"
+#include "MazeNode.h"
 class InternalMouse {
  public:
-  InternalMouse(int startingRobotPosition[2], char startingRobotDirection,
-                int mazeNumRows = 16, int mazeNumCols = 16);
+  InternalMouse(std::array<int, 2> startingRobotPosition,
+                std::string startingRobotDirection);
   ~InternalMouse();
 
   void moveIMForwardOneCell(int cellNumberToMoveForward);
   void turnIM45DegreeStepsRight(int halfStepsRight);
 
  private:
-  void setUpIMMaze();
+  int indexOfDirection(std::string direction);
 
-  std::vector<std::vector<MazeGrid*>> cellMaze;
-  char currentRobotDirection;
-  int* currentRobotPosition;
+  std::string currentRobotDirection;
+  std::array<int, 2> currentRobotPosition;
+
+  const std::array<std::string, 8> possibleDirections = {"n", "ne", "e", "se",
+                                                         "s", "sw", "w", "nw"};
+  const std::map<std::string, std::array<int, 2>>
+      directionStringToOffsetArrayMap = {
+          {"n", {0, 1}},  {"ne", {1, 1}},   {"e", {1, 0}},  {"s", {1, -1}},
+          {"s", {0, -1}}, {"sw", {-1, -1}}, {"w", {-1, 0}}, {"n", {-1, 1}}};
 };
 
 #endif

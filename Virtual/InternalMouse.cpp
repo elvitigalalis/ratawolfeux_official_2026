@@ -1,37 +1,35 @@
 #include "InternalMouse.h"
 
-InternalMouse::InternalMouse(int startingRobotPosition[2],
-                             char startingRobotDirection, int mazeNumRows,
-                             int mazeNumCols)
+#include <map>
+
+InternalMouse::InternalMouse(std::array<int, 2> startingRobotPosition,
+                             std::string startingRobotDirection)
     : currentRobotPosition(startingRobotPosition),
-      currentRobotDirection(startingRobotDirection)
-{
-  // Vector of (# of rows) copies of (vectors of (# of cols) maze cells).
-  cellMaze = std::vector<std::vector<MazeGrid*>>(
-      mazeNumCols, std::vector<MazeGrid*>(mazeNumRows));
-
-  setUpIMMaze();
-}
-
-void InternalMouse::setUpIMMaze() {
-  // Formatted as (x, y); x = column, y = row number.
-  for (int col = 0; col < cellMaze.size(); col++) {
-    for (int row = 0; row < cellMaze[0].size(); row++) {
-      cellMaze[col][row] = new MazeGrid(col, row);
-    }
-  }
-}
-
-InternalMouse::~InternalMouse() {
-  // Deletes all cell objects in the maze.
-  for (int col = 0; col < cellMaze.size(); col++) {
-    for (int row = 0; row < cellMaze[0].size(); row++) {
-      delete cellMaze[col][row];
-    }
-  }
-}
+      currentRobotDirection(startingRobotDirection) {}
 
 void InternalMouse::moveIMForwardOneCell(int cellNumberToMoveForward) {
-
+  std::array<int, 2> directionOffsetToAdd =
+      directionStringToOffsetArrayMap.at(currentRobotDirection);
+  currentRobotPosition[0] += directionOffsetToAdd[0];
+  currentRobotDirection[1] += directionOffsetToAdd[1];
 }
-void InternalMouse::turnIM45DegreeStepsRight(int halfStepsRight) {}
+
+void InternalMouse::turnIM45DegreeStepsRight(int halfStepsRight) {
+  int currentDirectionIndex = indexOfDirection(currentRobotDirection);
+
+  // Adding one to index = turning right half step in cardinal directions.
+  int newDirectionIndex =
+      (currentDirectionIndex + halfStepsRight) % possibleDirections.size();
+
+  currentRobotDirection = possibleDirections[newDirectionIndex];
+}
+
+int InternalMouse::indexOfDirection(std::string direction) {
+  for (int i = 0; i < possibleDirections.size(); i++) {
+    if (possibleDirections[i] == direction) {
+      return i;
+    }
+  }
+
+  return -1;
+}
