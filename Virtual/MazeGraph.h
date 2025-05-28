@@ -2,6 +2,7 @@
 #define MAZEGRAPH_H
 
 #include <vector>
+#include <string>
 
 #include "MazeNode.h"
 
@@ -12,6 +13,9 @@ class MazeGraph {
 
   MazeNode* getNode(int nodePosX, int nodePosY);
   void printASCIIMaze();
+
+  int getMazeWidth();
+  int getMazeHeight();
 
  private:
   void createCellsInMaze();

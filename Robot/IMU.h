@@ -1,6 +1,8 @@
 #ifndef IMU_H
 #define IMU_H
 
+#include <array>
+
 #include "pico/stdlib.h"
 
 class IMU {
@@ -19,7 +21,7 @@ class IMU {
   static void convertPacketDataToUsableYaw();
 
   const int uartRXPin;
-  static volatile uint8_t IMUBufferForYaw[19];
+  static std::array<uint8_t, 19> IMUBufferForYaw;
   static float robotYawNeg180To180Degrees;
   static float resetOffSet;
 };

@@ -44,15 +44,21 @@ add_executable(Ratawolfeux
     Robot/ToF.cpp
     Utils/PIDController.cpp
     Utils/LogSystem.cpp
-    main.c
+    Virtual/InternalMouse.cpp
+    Virtual/MazeGraph.cpp
+    Virtual/MazeNode.cpp
+    Main.cpp
 )
 
-pico_set_program_name( "Ratawolfeux")
+pico_set_program_name(Ratawolfeux "Ratawolfeux")
 pico_set_program_version(Ratawolfeux "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(Ratawolfeux 0)
 pico_enable_stdio_usb(Ratawolfeux 1)
+
+# Add the ToF library to the build
+add_subdirectory(vl53l0x_api_rp2040)
 
 # Add the standard library to the build
 target_link_libraries(Ratawolfeux
@@ -63,6 +69,7 @@ target_link_libraries(Ratawolfeux
         hardware_irq
         hardware_uart
         hardware_i2c
+        vl53l0x_api_rp2040
         )
 
 # Add the standard include files to the build

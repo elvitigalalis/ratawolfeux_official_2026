@@ -13,6 +13,10 @@
 #define PARITY UART_PARITY_NONE
 #define UART_IRQ UART1_IRQ
 
+std::array<uint8_t, 19> IMU::IMUBufferForYaw = {};
+float IMU::robotYawNeg180To180Degrees = 0.0f;
+float IMU::resetOffSet = 0.0f;
+
 IMU::IMU(int uartRXPin) : uartRXPin(uartRXPin) {
   setUpIMUCommunication();
   setUpIMUInterrupts();

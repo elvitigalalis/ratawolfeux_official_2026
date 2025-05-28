@@ -6,7 +6,6 @@ class MazeNode {
   MazeNode(int mazeXPos, int mazeYPos);
   ~MazeNode();
 
-  void addWallInDirection(char NESWdirection);
   void markAsExplored();
 
   int getCellXPos();
@@ -15,9 +14,10 @@ class MazeNode {
   bool getIsWall(char NESWdirection);
 
   void setCellInDirection(MazeNode* node, char NESWdirection);
+  void setWallInDirection(char NESWdirection);
 
  private:
-  void setThereIsWall(char NESWdirection);
+  void addThereIsWall(char NESWdirection);
 
   int mazeXPos, mazeYPos;
   MazeNode* NCell;

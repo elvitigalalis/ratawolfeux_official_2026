@@ -19,6 +19,8 @@ bool Drivetrain::driveRobotForwardNumberOfCells(int numberOfCells) {
                                                  cellsLengthMM);
   rightMotor->setContinuousDesiredMotorPositionMM(rightMotorCurrentPosition +
                                                   cellsLengthMM);
+
+  return true;
 }
 
 bool Drivetrain::turnRobotDegreesInPlace(int degreesToTurn) {

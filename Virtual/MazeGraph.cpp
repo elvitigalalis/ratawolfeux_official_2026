@@ -95,4 +95,9 @@ std::string MazeGraph::stringifyMazeRow(int rowIndex) {
   }
 
   rowString << verticalWallString.str() << "\n" << horizontalWallString.str();
+  return rowString.str();
 }
+
+int MazeGraph::getMazeWidth() { return cellMaze.size(); }
+
+int MazeGraph::getMazeHeight() { return cellMaze[0].size(); }

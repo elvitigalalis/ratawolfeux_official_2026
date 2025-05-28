@@ -5,24 +5,24 @@
 MazeNode::MazeNode(int mazeXPos, int mazeYPos)
     : mazeXPos(mazeXPos), mazeYPos(mazeYPos) {}
 
-void MazeNode::addWallInDirection(char NESWdirection) {
+void MazeNode::setWallInDirection(char NESWdirection) {
   switch (tolower(NESWdirection)) {
     // Adds shared walls between two cells.
     case 'n':
-      setThereIsWall('n');
-      if (NCell != nullptr) NCell->setThereIsWall('s');
+      addThereIsWall('n');
+      if (NCell != nullptr) NCell->addThereIsWall('s');
 
     case 'e':
-      setThereIsWall('e');
-      if (ECell != nullptr) ECell->setThereIsWall('w');
+      addThereIsWall('e');
+      if (ECell != nullptr) ECell->addThereIsWall('w');
 
     case 's':
-      setThereIsWall('s');
-      if (SCell != nullptr) SCell->setThereIsWall('n');
+      addThereIsWall('s');
+      if (SCell != nullptr) SCell->addThereIsWall('n');
 
     case 'w':
-      setThereIsWall('w');
-      if (WCell != nullptr) WCell->setThereIsWall('e');
+      addThereIsWall('w');
+      if (WCell != nullptr) WCell->addThereIsWall('e');
   }
 }
 
@@ -37,9 +37,11 @@ bool MazeNode::getIsWall(char NESWdirection) {
     case 'w':
       return isThereWWall;
   }
+
+  return false;
 }
 
-void MazeNode::setThereIsWall(char NESWdirection) {
+void MazeNode::addThereIsWall(char NESWdirection) {
   switch (tolower(NESWdirection)) {
     case 'n':
       isThereNWall = true;

@@ -1,6 +1,7 @@
 #ifndef PIDCONTROLLER_H
 #define PIDCONTROLLER_H
 
+#include <pico/stdlib.h>
 class PIDController {
  public:
   PIDController(float kP = 0.0f, float kI = 0.0f, float kD = 0.0f,

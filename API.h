@@ -2,11 +2,13 @@
 #define API_H
 
 #include <Robot/Drivetrain.h>
+#include <Virtual/InternalMouse.h>
 
 #include <string>
 class API {
  public:
-  // API(Drivetrain* drivetrain, InternalMouse* internalMouse);
+  API(Drivetrain* drivetrain, InternalMouse* internalMouse,
+      bool runOnSimulator = false);
   ~API();
 
   int mazeWidth();
@@ -39,6 +41,11 @@ class API {
 
  private:
   Drivetrain* drivetrain;
-  //  InternalMouse* internalMouse;
+  InternalMouse* internalMouse;
+  bool runOnSimulator;
+
+  std::string getSimulatorResponse(std::string commandUsed);
+  int getSimulatorIntegerResponse(std::string commandUsed);
+  bool getSimulatorBoolResponse(std::string commandUsed);
 };
 #endif

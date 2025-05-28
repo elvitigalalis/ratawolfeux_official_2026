@@ -2,7 +2,7 @@
 #define MOTOR_H
 
 #include "Encoder.h"
-#include "PIDController.h"
+#include "../Utils/PIDController.h"
 
 class Motor {
  public:
